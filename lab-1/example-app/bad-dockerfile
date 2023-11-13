@@ -1,0 +1,17 @@
+FROM ubuntu:latest
+
+WORKDIR /home/example-app
+
+ENV PASSWORD="Pa$$w0rd"
+
+RUN apt-get update && apt-get install curl -y
+
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash \
+  && apt-get install nodejs
+
+COPY . .
+RUN npm i
+
+EXPOSE 3000
+
+ENTRYPOINT ["node", "src/index.js"]
