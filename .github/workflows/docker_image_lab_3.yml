@@ -20,5 +20,5 @@ jobs:
           context: ./lab-3/example-app
           push: true
           tags:
-            - "{{ secrets.DOCKER_HUB_USERNAME }}/example-app:latest"
-            - "{{ secrets.DOCKER_HUB_USERNAME }}/example-app:{{ github.run_number }}"
+            ${{ secrets.DOCKER_HUB_USERNAME }}/example-app:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/example-app:${{ github.run_number }}
