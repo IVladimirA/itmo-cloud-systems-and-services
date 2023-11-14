@@ -30,6 +30,20 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x | bash \
 ENV PASSWORD="Pa$$w0rd"
 ```
 При получении доступа к файлу злоумышленник получит секретны
+#### Проверка работоспособности
+```
+$ docker build -f bad-dockerfile .
+...
+$ docker images | head -2
+REPOSITORY                 TAG       IMAGE ID       CREATED              SIZE
+<none>                     <none>    6e2619e556d6   6 seconds ago        327MB
+$ docker run -p 11333:3000 -d -it 6e2619e556d6
+553f638ecadca02a80044bd4a17b1df1a1272dce853f5c86173f8134ed1bfac4
+$ curl localhost:11333
+Hi <3
+$ curl http://localhost:11333/?password=Pa\$\$w0rd
+Secret meeting location is 45.0723309,39.0377339
+```
 ### Создание Dockerfile без применения плохих практик.
 Был создан файл `Dockerfile` без применения плохих практик.
 #### 1. Использование конкретной версии образа
@@ -48,6 +62,20 @@ ARG PASSWORD
 ENV PASSWORD=$PASSWORD
 ```
 Чувствиетльные переменные окружения хранятся в `.env` файле и указываются при запуске контейнера ключом `--env-file`.
+#### Проверка работоспособности
+```
+$ docker build .
+...
+$ docker images | head -2
+REPOSITORY                 TAG       IMAGE ID       CREATED          SIZE
+<none>                     <none>    f3598e205a0f   14 seconds ago   193MB
+$ docker run -p 11333:3000 -d -it --env-file .env f3598e205a0f
+5df70ef4f0c221ffbcc7b20e1bbdfdd592478255bc334b658566d8796ce21a15
+$ curl http://localhost:11333
+Hi <3
+$ curl http://localhost:11333/?password=123456
+Secret meeting location is 45.0723309,39.0377339
+```
 ## Вывод
 При написании Dockerfile очень важно проверять содержимое на наличие плохих практик.\
 При неправильном написании образ может быть зависим от внешних обновлений, иметь непредсказуемой поведение,\
