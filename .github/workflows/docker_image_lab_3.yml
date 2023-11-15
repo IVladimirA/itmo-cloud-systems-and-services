@@ -22,5 +22,5 @@ jobs:
           context: ./lab-3/example-app
           push: true
           tags:
-            ${{ vars.DOCKER_HUB_USERNAME }}/example-app:latest
-            ${{ vars.DOCKER_HUB_USERNAME }}/example-app:${{ github.run_number }}
+            tfsiva/example-app:latest
+            tfsiva/example-app:${{ github.run_number }}
