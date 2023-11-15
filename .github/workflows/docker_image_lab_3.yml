@@ -21,6 +21,4 @@ jobs:
         with:
           context: ./lab-3/example-app
           push: true
-          tags:
-            tfsiva/example-app:latest
-            tfsiva/example-app:${{ github.run_number }}
+          tags: tfsiva/example-app:latest , tfsiva/example-app:${{ github.run_number }}
