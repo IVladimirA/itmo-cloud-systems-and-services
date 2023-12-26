@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Import Secrets
-        uses: hashicorp/vault-action@v2
+        uses: hashicorp/vault-action@v2.4.0
         with:
           url: http://127.0.0.1:8200
           tlsSkipVerify: true
