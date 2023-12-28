@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: dms-service-monitor
+  namespace: monitoring
+spec:
+  endpoints:
+    - interval: 15s
+      port: metrics
+      scrapeTimeout: 14s
+  namespaceSelector:
+    matchNames:
+      - production
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: dms
